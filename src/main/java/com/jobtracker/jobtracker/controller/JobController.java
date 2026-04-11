@@ -27,4 +27,25 @@ public class JobController {
     public List<Job> getAllJobs() {
         return jobRepository.findAll();
     }
+
+    @PutMapping("/{id}")
+    public Job updateJob(@PathVariable Long id, @RequestBody Job updatedjob) {
+
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+
+        job.setCompany(updatedjob.getCompany());
+        job.setRole(updatedjob.getRole());
+        job.setNotes(updatedjob.getNotes());
+        job.setStatus(updatedjob.getStatus());
+
+        return jobRepository.save(job);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteJob(@PathVariable Long id){
+        jobRepository.deleteById(id);
+        return "Job Deleted successfully";
+    }
+
 }

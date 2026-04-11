@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Job</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h1>Edit Job</h1>
+
+<form th:action="@{'/update/' + ${job.id}}" method="post">
+
+    <input type="text" name="company" th:value="${job.company}" required>
+    <input type="text" name="role" th:value="${job.role}" required>
+    <input type="text" name="status" th:value="${job.status}" required>
+    <input type="text" name="notes" th:value="${job.notes}">
+
+    <button type="submit">Update</button>
+</form>
+
+</body>
+</html>

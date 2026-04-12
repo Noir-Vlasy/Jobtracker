@@ -14,5 +14,8 @@ public class Job {
     private String company;
     private String role;
     private String status;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     private String notes;
 }

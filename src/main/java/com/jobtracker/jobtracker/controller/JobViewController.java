@@ -1,6 +1,7 @@
 package com.jobtracker.jobtracker.controller;
 
 import com.jobtracker.jobtracker.model.Job;
+import com.jobtracker.jobtracker.model.User;
 import com.jobtracker.jobtracker.repository.JobRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +17,17 @@ public class JobViewController {
     }
 
     @GetMapping("/")
-    public String viewHomePage(Model model) {
-        model.addAttribute("jobs", jobRepository.findAll());
+    public String viewHomePage(Model model, jakarta.servlet.http.HttpSession session) {
+
+        User user = (User) session.getAttribute("loggedInUser");
+
+        if (user == null) {
+            return "redirect:/login"; // 🔒 not logged in
+        }
+
+        model.addAttribute("jobs", jobRepository.findAll()); // temp
         return "index";
+
     }
 
     @PostMapping("/add-job")

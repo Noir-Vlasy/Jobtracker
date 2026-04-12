@@ -6,11 +6,24 @@
 </head>
 <body>
 
+<p style="text-align: center;">Welcome, <span th:text="${session.loggedInUser.username}"></span ></p>
+
+<div class="container">
 <h1>Job Tracker</h1>
 
+<a href="/logout">
+    <button>Logout</button>
+</a>
+
+<div th:if="${session.loggedInUser.role == 'ADMIN'}">
+    <a href="/admin">
+        <button>Admin Panel</button>
+    </a>
+</div>
+
 <form action="/add-job" method="post">
-    <input type="text" name="company" placeholder="Company" required>
-    <input type="text" name="role" placeholder="Role" required>
+    <input type="text" name="company" placeholder="Company" required style="margin:5px; padding:8px;">
+    <input type="text" name="role" placeholder="Role" required style="margin:5px; padding:8px;">
 
     <select name="status" required>
         <option>Applied</option>
@@ -19,7 +32,7 @@
         <option>Offer</option>
     </select>
 
-    <input type="text" name="notes" placeholder="Notes">
+    <input type="text" name="notes" placeholder="Notes" style="margin:5px; padding:8px;">
     <button type="submit">Add Job</button>
 </form>
 
@@ -57,6 +70,6 @@
     </tr>
 
 </table>
-
+</div>
 </body>
 </html>

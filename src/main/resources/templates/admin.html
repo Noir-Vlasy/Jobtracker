@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Job Tracker</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<h3>All Users</h3>
+<ul>
+    <li th:each="u : ${users}" th:text="${u.username}"></li>
+</ul>
+
+<h3>All Jobs</h3>
+<ul>
+    <li th:each="j : ${jobs}"
+        th:text="${j.company} + ' - ' + ${j.role}"></li>
+</ul>
+
+<a href="/h2-console"><button>Database Console</button></a>
+<br><br>
+<a href="/"><button>User Panel</button></a>
+</body>
+</html>

@@ -2,10 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Register</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
 <h2>Register</h2>
+
+<div th:if="${param.error == 'username'}" style="color:red;">
+    Username already exists
+</div>
 
 <form action="/register" method="post">
     <input type="text" name="username" placeholder="Username" required><br>

@@ -21,4 +21,7 @@ public class User {
     private String password;
 
     private String provider; // LOCAL or GOOGLE
+
+    @Column(nullable = false)
+    private String role = "USER"; // user or Admin (Updated Manually)
 }

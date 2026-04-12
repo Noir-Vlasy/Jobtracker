@@ -25,13 +25,17 @@ public class JobViewController {
             return "redirect:/login"; // 🔒 not logged in
         }
 
-        model.addAttribute("jobs", jobRepository.findAll()); // temp
+        model.addAttribute("jobs", jobRepository.findAllByUser(user)); // temp
         return "index";
 
     }
 
     @PostMapping("/add-job")
-    public String addJob(@ModelAttribute Job job) {
+    public String addJob(@ModelAttribute Job job, jakarta.servlet.http.HttpSession session) {
+
+        User user = (User) session.getAttribute("loggedInUser");
+
+        job.setUser(user); //  LINK JOB TO USER
         jobRepository.save(job);
         return "redirect:/";
     }

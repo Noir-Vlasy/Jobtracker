@@ -1,47 +1,35 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 40px;
-    background-color: #2b2b2b;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 0;
 }
 
-h1 {
+.container {
+    width: 60%;
+    margin: auto;
+    margin-top: 40px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
     text-align: center;
-}
-
-form {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-input {
-    padding: 8px;
-    margin: 5px;
 }
 
 button {
     padding: 8px 12px;
     margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
     cursor: pointer;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-}
-
-select {
-    height: 34px;
-    width: 13%;
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-th {
-    background-color: #333;
-    color: white;
+button:hover {
+    background-color: #9fdf9f;
+    color: black;
 }

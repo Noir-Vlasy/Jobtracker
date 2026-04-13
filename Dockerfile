@@ -1,5 +1,5 @@
 # Use Java 17
-FROM openjdk:17-jdk
+FROM eclipse-temurin:17-jdk
 
 # Set working directory
 WORKDIR /app
@@ -17,4 +17,4 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 
 # Run the jar
-CMD ["java", "-jar", "target/jobtracker-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/Jobtracker-0.0.1-SNAPSHOT.jar"]

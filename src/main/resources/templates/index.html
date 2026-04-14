@@ -10,42 +10,40 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">JobTracker</a>
+    <div class="container-fluid d-flex justify-content-between align-items-center"> <!--declare flexbox for justify and align use -->
 
-        <div class="collapse navbar-collapse d-flex">
-            <ul class="navbar-nav ms-auto  align-items-center">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Dashboard</a>
-                </li>
-                <!-- Admin Button -->
-                <li class="nav-item me-2" th:if="${session.loggedInUser != null and session.loggedInUser.role == 'ADMIN'}">
-                    <a class="btn btn-warning btn-sm" href="/admin">Admin Panel</a>
-                </li>
-                <!-- Logout Button -->
-                <li class="nav-item">
-                    <a class="btn btn-danger btn-sm" href="/logout">Logout</a>
-                </li>
-            </ul>
+        <!-- LEFT: Welcome, 'user' -->
+        <div class="text-white fs-6"> <!-- Font size and color -->
+            Welcome, <span th:text="${session.loggedInUser.username}"></span>
         </div>
+
+        <!-- CENTER: app name -->
+        <a class="navbar-brand mx-auto position-absolute start-50 translate-middle-x" href="/">
+            JobTracker
+        </a>
+
+        <!-- RIGHT, chochle "Buttons" -->
+        <ul class="navbar-nav ms-auto align-items-center">
+
+            <li class="nav-item me-2">
+                <a class="btn btn-outline-light btn-sm" href="/">Dashboard</a>
+            </li>
+
+            <li class="nav-item me-2"
+                th:if="${session.loggedInUser != null and session.loggedInUser.role == 'ADMIN'}">
+                <a class="btn btn-warning btn-sm" href="/admin">Admin</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="btn btn-danger btn-sm" href="/logout">Logout</a>
+            </li>
+
+        </ul>
+
     </div>
 </nav>
 
 <p style="text-align: center;">Welcome, <span th:text="${session.loggedInUser.username}"></span ></p>
-
-<div class="container">
-    <h1>Job Tracker</h1>
-
-    <a href="/logout">
-        <button>Logout</button>
-    </a>
-
-    <div th:if="${session.loggedInUser.role == 'ADMIN'}">
-        <a href="/admin">
-            <button>Admin Panel</button>
-        </a>
-    </div>
-
 
     <div class="container mt-5">
 

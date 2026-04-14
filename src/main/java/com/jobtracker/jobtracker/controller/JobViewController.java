@@ -28,7 +28,7 @@ public class JobViewController {
         model.addAttribute("jobs", jobRepository.findAllByUser(user)); // temp
         return "index";
 
-    }
+      }
 
     @PostMapping("/add-job")
     public String addJob(@ModelAttribute Job job, jakarta.servlet.http.HttpSession session) {

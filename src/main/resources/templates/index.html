@@ -1,75 +1,133 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Job Tracker</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/style.css}"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">JobTracker</a>
+
+        <div class="collapse navbar-collapse d-flex">
+            <ul class="navbar-nav ms-auto  align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Dashboard</a>
+                </li>
+                <!-- Admin Button -->
+                <li class="nav-item me-2" th:if="${session.loggedInUser != null and session.loggedInUser.role == 'ADMIN'}">
+                    <a class="btn btn-warning btn-sm" href="/admin">Admin Panel</a>
+                </li>
+                <!-- Logout Button -->
+                <li class="nav-item">
+                    <a class="btn btn-danger btn-sm" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <p style="text-align: center;">Welcome, <span th:text="${session.loggedInUser.username}"></span ></p>
 
 <div class="container">
-<h1>Job Tracker</h1>
+    <h1>Job Tracker</h1>
 
-<a href="/logout">
-    <button>Logout</button>
-</a>
-
-<div th:if="${session.loggedInUser.role == 'ADMIN'}">
-    <a href="/admin">
-        <button>Admin Panel</button>
+    <a href="/logout">
+        <button>Logout</button>
     </a>
-</div>
 
-<form action="/add-job" method="post">
-    <input type="text" name="company" placeholder="Company" required style="margin:5px; padding:8px;">
-    <input type="text" name="role" placeholder="Role" required style="margin:5px; padding:8px;">
+    <div th:if="${session.loggedInUser.role == 'ADMIN'}">
+        <a href="/admin">
+            <button>Admin Panel</button>
+        </a>
+    </div>
 
-    <select name="status" required>
-        <option>Applied</option>
-        <option>Interview</option>
-        <option>Rejected</option>
-        <option>Offer</option>
-    </select>
 
-    <input type="text" name="notes" placeholder="Notes" style="margin:5px; padding:8px;">
-    <button type="submit">Add Job</button>
-</form>
+    <div class="container mt-5">
 
-<hr> 
+        <h3 class="mb-4 justify-content-center">Add Job</h3>
 
-<h2>All Jobs</h2>
+        <form action="/add-job" method="post">
 
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Company</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th>Notes</th>
-        <th>Action</th>
-    </tr>
+            <div class="row ">
 
-    <tr th:each="job : ${jobs}">
-        <td th:text="${job.id}"></td>
-        <td th:text="${job.company}"></td>
-        <td th:text="${job.role}"></td>
-        <td th:text="${job.status}"></td>
-        <td th:text="${job.notes}"></td>
-        <td>
+                <div class="col-md-6 mb-3 ">
+                    <label class="form-label ">Company</label>
+                    <input type="text" name="company" class="form-control" required>
+                </div>
 
-            <a th:href="@{'/edit/' + ${job.id}}">
-                <button>Edit</button>
-            </a>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Role</label>
+                    <input type="text" name="role" class="form-control" required>
+                </div>
 
-            <a th:href="@{'/delete/' + ${job.id}}"
-                onclick="return confirm('Are you sure you want to delete this job?')">
-                <button>Delete</button>
-            </a>
-        </td>
-    </tr>
+                <div class="col-md-6 mb-3 ">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-select">
+                        <option>Applied</option>
+                        <option>Interview</option>
+                        <option>Offer</option>
+                        <option>Rejected</option>
+                    </select>
+                </div>
 
-</table>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Notes</label>
+                    <textarea name="notes" class="form-control"></textarea>
+                </div>
+
+            </div>
+            <div class="text-center">
+            <button type="submit" class="btn btn-primary w-25 ">Save Job</button>
+            </div>
+        </form>
+
+    </div>
+
+    <hr>
+
+    <div class="container mt-4">
+
+        <h2 class="mb-3">All Jobs</h2>
+
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Company</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="job : ${jobs}">
+                <td th:text="${job.id}"></td>
+                <td th:text="${job.company}"></td>
+                <td th:text="${job.role}"></td>
+                <td th:text="${job.status}"></td>
+                <td th:text="${job.notes}"></td>
+
+                <td>
+                    <a th:href="@{'/edit/' + ${job.id}}" class="btn btn-warning btn-sm">Edit</a>
+
+                    <a th:href="@{'/delete/' + ${job.id}}"
+                       onclick="return confirm('Are you sure you want to delete this job?')"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>
 </body>
 </html>

@@ -18,9 +18,9 @@ public class JobViewController {
         this.jobRepository = jobRepository;
     }
 
-    @GetMapping("/")
-    public String viewHomePage(@RequestParam(required = false) String keyword,
-                               @RequestParam(required = false) String status,
+    @GetMapping ("/")
+    public String viewHomePage(@RequestParam (required = false) String keyword,
+                               @RequestParam (required = false) String status,
                                Model model,
                                jakarta.servlet.http.HttpSession session) {
 
@@ -35,8 +35,8 @@ public class JobViewController {
         model.addAttribute("jobs", jobs);
         return "index";
     }
-
-    @PostMapping("/add-job")
+    
+    @PostMapping ("/add-job")
     public String addJob(@ModelAttribute Job job, jakarta.servlet.http.HttpSession session) {
 
         User user = (User) session.getAttribute("loggedInUser");
@@ -45,12 +45,14 @@ public class JobViewController {
         jobRepository.save(job);
         return "redirect:/";
     }
-    @GetMapping("/delete/{id}")
+
+    @GetMapping ("/delete/{id}")
     public String deleteJob(@PathVariable Long id) {
         jobRepository.deleteById(id);
         return "redirect:/";
     }
-    @GetMapping("/edit/{id}")
+
+    @GetMapping ("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Job job = jobRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Job not found"));
@@ -58,7 +60,8 @@ public class JobViewController {
         model.addAttribute("job", job);
         return "edit-job";
     }
-    @PostMapping("/update/{id}")
+
+    @PostMapping ("/update/{id}")
     public String updateJob(@PathVariable Long id, @ModelAttribute Job updatedJob) {
         Job job = jobRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Job not found"));

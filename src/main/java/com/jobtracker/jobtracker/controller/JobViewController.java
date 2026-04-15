@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class JobViewController {
 
@@ -17,18 +19,22 @@ public class JobViewController {
     }
 
     @GetMapping("/")
-    public String viewHomePage(Model model, jakarta.servlet.http.HttpSession session) {
+    public String viewHomePage(@RequestParam(required = false) String keyword,
+                               @RequestParam(required = false) String status,
+                               Model model,
+                               jakarta.servlet.http.HttpSession session) {
 
         User user = (User) session.getAttribute("loggedInUser");
 
         if (user == null) {
-            return "redirect:/login"; // 🔒 not logged in
+            return "redirect:/login";
         }
 
-        model.addAttribute("jobs", jobRepository.findAllByUser(user)); // temp
-        return "index";
+        List<Job> jobs = jobRepository.searchJobs(user, keyword, status);
 
-      }
+        model.addAttribute("jobs", jobs);
+        return "index";
+    }
 
     @PostMapping("/add-job")
     public String addJob(@ModelAttribute Job job, jakarta.servlet.http.HttpSession session) {

@@ -98,7 +98,17 @@ This is my first proper full-stack project using Spring Boot, so the code might 
 
 ## 📷 Preview
 
-(Add screenshots here)
+<img width="1740" height="902" alt="image" src="https://github.com/user-attachments/assets/9d66eb9c-d737-4b72-8e8b-69f0dbe3fdc2" />
+Admin Panel (updated) - in UI/UX-update branch, will merge then Update is complete.
+
+<img width="1919" height="946" alt="Screenshot 2026-04-16 041800" src="https://github.com/user-attachments/assets/83b73e83-edd1-45c2-b164-126579c5a56e" />
+Homepage - User panel
+
+<img width="1082" height="579" alt="Screenshot 2026-04-16 041501" src="https://github.com/user-attachments/assets/debccb91-198c-4cb4-b7ca-017da4d33df5" />
+Registration Page
+
+<img width="1035" height="610" alt="Screenshot 2026-04-16 041335" src="https://github.com/user-attachments/assets/4c87ed14-0726-4e34-8eba-1270e8d6b36d" />
+Login Page
 
 ---
 

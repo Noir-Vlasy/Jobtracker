@@ -9,7 +9,36 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div th:if="${param.success}">
+    <div id="successAlert" class="alert alert-success text-center">
+
+        <span th:if="${param.success[0] == 'added'}">
+            Job added successfully
+        </span>
+
+        <span th:if="${param.success[0] == 'deleted'}">
+            Job deleted successfully
+        </span>
+
+        <span th:if="${param.success[0] == 'updated'}">
+            Job updated successfully
+        </span>
+
+    </div>
+</div>
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast align-items-center text-bg-success border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body" id="toastMessage">
+                Action successful
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <!--declare flexbox for justify and align use -->
 
@@ -48,7 +77,7 @@
 
     <h3 class="mb-4 justify-content-center">Add Job</h3>
 
-    <form action="/add-job" method="post">
+    <form action="/add-job" method="post" class="needs-validation" novalidate>
 
         <div class="row ">
 
@@ -170,6 +199,51 @@
         clearTimeout(timeout);
         timeout = setTimeout(() => form.submit(), 400)
     });
+
+    //Form Validation
+    (() => {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const success = params.get("success");
+
+    if (success) {
+        let message = "";
+
+        if (success === "added") message = "Job added successfully";
+        if (success === "deleted") message = "Job deleted successfully";
+        if (success === "updated") message = "Job updated successfully";
+
+        document.getElementById("toastMessage").innerText = message;
+
+        const toast = new bootstrap.Toast(document.getElementById('liveToast'));
+        toast.show();
+    }
+    //Action Notification timeout
+    setTimeout(() => {
+        const alert = document.getElementById("successAlert");
+        if (alert) {
+            alert.style.transition = "opacity 0.5s ease";
+            alert.style.opacity = "0";
+
+            setTimeout(() => {
+                alert.remove();
+            }, 500);
+        }
+    }, 3000); // 3 seconds
 </script>
 
 </body>

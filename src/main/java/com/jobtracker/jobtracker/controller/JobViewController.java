@@ -3,6 +3,8 @@ package com.jobtracker.jobtracker.controller;
 import com.jobtracker.jobtracker.model.Job;
 import com.jobtracker.jobtracker.model.User;
 import com.jobtracker.jobtracker.repository.JobRepository;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,19 +39,23 @@ public class JobViewController {
     }
     
     @PostMapping ("/add-job")
-    public String addJob(@ModelAttribute Job job, jakarta.servlet.http.HttpSession session) {
+    public String addJob(@Valid @ModelAttribute Job job,BindingResult result, jakarta.servlet.http.HttpSession session ) {
+
+        if (result.hasErrors()) {
+            return "index"; // reload form with errors
+        }
 
         User user = (User) session.getAttribute("loggedInUser");
 
         job.setUser(user); //  LINK JOB TO USER
         jobRepository.save(job);
-        return "redirect:/";
+        return "redirect:/?success=added";
     }
 
     @GetMapping ("/delete/{id}")
     public String deleteJob(@PathVariable Long id) {
         jobRepository.deleteById(id);
-        return "redirect:/";
+        return "redirect:/?success=deleted";
     }
 
     @GetMapping ("/edit/{id}")
@@ -73,6 +79,6 @@ public class JobViewController {
 
         jobRepository.save(job);
 
-        return "redirect:/";
+        return "redirect:/?success=updated";
     }
 }

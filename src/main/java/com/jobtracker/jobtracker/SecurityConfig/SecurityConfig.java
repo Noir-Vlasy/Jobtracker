@@ -16,7 +16,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**") // Disable CSRF for H2 only
-                        .disable() // You already had this disabled for your manual forms
+                        .disable() // already had this disabled for your manual forms
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll() // Explicitly allow H2

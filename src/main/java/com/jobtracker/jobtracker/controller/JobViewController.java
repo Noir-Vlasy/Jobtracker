@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -23,6 +24,7 @@ public class JobViewController {
     @GetMapping ("/")
     public String viewHomePage(@RequestParam (required = false) String keyword,
                                @RequestParam (required = false) String status,
+                               @RequestParam(required = false) String sort,
                                Model model,
                                jakarta.servlet.http.HttpSession session) {
 
@@ -34,6 +36,16 @@ public class JobViewController {
 
         List<Job> jobs = jobRepository.searchJobs(user, keyword, status);
 
+        if ("company".equals(sort)) {
+            jobs.sort(Comparator.comparing(Job::getCompany));
+        } else if ("status".equals(sort)) {
+            jobs.sort(Comparator.comparing(Job::getStatus));
+        } else if ("recent".equals(sort)) {
+            jobs.sort(Comparator.comparing(Job::getId).reversed());
+        }
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("status", status);
+        model.addAttribute("sort", sort);
         model.addAttribute("jobs", jobs);
         return "index";
     }

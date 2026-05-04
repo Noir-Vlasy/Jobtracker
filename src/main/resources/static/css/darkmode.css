@@ -12,8 +12,13 @@ body.dark-mode {
 .dark-mode .form-control,
 .dark-mode .form-select {
     background-color: #2a2a2a;
-    color: #ffffff;
+    color: #aaa2a2;
     border-color: #444;
+}
+
+.dark-mode .form-control::placeholder {
+    color: #a9a1a1;   /* or whatever fits your theme */
+    opacity: 1;    /* Firefox fix */
 }
 
 .dark-mode .navbar {

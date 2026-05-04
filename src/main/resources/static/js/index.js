@@ -58,3 +58,29 @@ setTimeout(() => {
         }, 500);
     }
 }, 3000); // 3 seconds
+
+
+document.querySelector('.navTrigger').addEventListener('click', function () {
+    this.classList.toggle('active');
+    document.getElementById('mainListDiv').classList.toggle('show_list');
+});
+
+window.addEventListener('scroll', function () {
+    const navbar = document.getElementById('mainNavbar');
+
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+window.addEventListener('scroll', function () {
+    const menu = document.getElementById('mainListDiv');
+    const trigger = document.querySelector('.navTrigger');
+
+    if (menu.classList.contains('show_list')) {
+        menu.classList.remove('show_list');
+        trigger.classList.remove('active');
+    }
+});

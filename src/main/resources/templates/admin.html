@@ -88,7 +88,7 @@
             <tbody>
             <tr th:each="j : ${jobs}">
                 <td th:text="${j.id}"></td>
-                <td th:text="${j.user.username}"></td>
+                <td th:text="${j.user != null ? j.user.username : 'N/A'}"></td>
                 <td th:text="${j.company}"></td>
                 <td th:text="${j.role}"></td>
                 <td th:text="${j.status}"></td>
